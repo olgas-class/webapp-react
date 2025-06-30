@@ -1,19 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import ReviewsList from "../components/reviews/ReviewsList";
 import Stars from "../components/Stars";
 
 const SingleBook = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
+  const navigate = useNavigate();
 
   const [book, setBook] = useState(null);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/books/${id}`).then((resp) => {
-      setBook(resp.data.data);
-    });
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/books/${slug}`)
+      .then((resp) => {
+        setBook(resp.data.data);
+      })
+      .catch((err) => {
+        if (err.status === 404) {
+          navigate("/not-found");
+        }
+      });
   }, []);
 
   return (

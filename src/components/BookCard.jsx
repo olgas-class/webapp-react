@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const BookCard = ({ book }) => {
-  const { id, title, author, abstract, image } = book;
+  const { slug, title, author, abstract, image } = book;
   return (
     <div className="card h-100">
       <img
@@ -14,7 +14,7 @@ const BookCard = ({ book }) => {
           {author} - {title}
         </h5>
         <p className="card-text">{abstract}</p>
-        <Link to={`/books/${id}`} className="btn btn-primary">
+        <Link to={`/books/${slug}`} className="btn btn-primary">
           Vedi dettagli
         </Link>
       </div>

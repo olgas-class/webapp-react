@@ -3,6 +3,7 @@ import GuestLayout from "./layout/GuestLayout";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
 import SingleBook from "./pages/SingleBook";
+import NotFound404 from "./pages/NotFound404";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
           <Route element={<GuestLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/books" element={<Books />} />
-            <Route path="/books/:id" element={<SingleBook />} />
+            <Route path="/books/:slug" element={<SingleBook />} />
+            <Route path="*" element={<NotFound404 />} />
           </Route>
         </Routes>
       </BrowserRouter>
