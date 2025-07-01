@@ -10,6 +10,10 @@ const AppHeader = () => {
       title: "Libri",
       url: "/books",
     },
+    {
+      title: "Crea libro",
+      url: "/books/create",
+    },
   ];
 
   return (

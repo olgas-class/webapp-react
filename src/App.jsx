@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Books from "./pages/Books";
 import SingleBook from "./pages/SingleBook";
 import NotFound404 from "./pages/NotFound404";
+import CreateBook from "./pages/CreateBook";
 
 function App() {
   return (
@@ -12,8 +13,12 @@ function App() {
         <Routes>
           <Route element={<GuestLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/books" element={<Books />} />
-            <Route path="/books/:slug" element={<SingleBook />} />
+            <Route path="/books">
+              <Route path="" element={<Books />} />
+              <Route path=":slug" element={<SingleBook />} />
+              <Route path="create" element={<CreateBook />} />
+            </Route>
+
             <Route path="*" element={<NotFound404 />} />
           </Route>
         </Routes>
