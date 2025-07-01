@@ -31,7 +31,7 @@ const SingleBook = () => {
           <img className="banner" src={book.image} alt="" />
         </section>
       )}
-      {book && (
+      {book !== null ? (
         <>
           <section className="container py-4">
             <BackButton />
@@ -48,6 +48,8 @@ const SingleBook = () => {
             <ReviewsList reviews={book.reviews} />
           </section>
         </>
+      ) : (
+        <div>Loading...</div>
       )}
     </main>
   );
