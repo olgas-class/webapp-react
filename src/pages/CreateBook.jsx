@@ -72,6 +72,7 @@ const CreateBook = () => {
                 name="title"
                 value={formData.title}
                 onChange={setFieldValue}
+                required
               />
             </div>
             <div className="mb-3">
@@ -85,6 +86,7 @@ const CreateBook = () => {
                 name="author"
                 value={formData.author}
                 onChange={setFieldValue}
+                required
               />
             </div>
             <div className="mb-3">
