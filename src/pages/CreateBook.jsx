@@ -8,6 +8,7 @@ const CreateBook = () => {
   const emptyBook = {
     title: "",
     author: "",
+    image: "",
     abstract: "",
   };
 
@@ -16,16 +17,38 @@ const CreateBook = () => {
   const setFieldValue = (event) => {
     const { value, name } = event.target;
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "image") {
+      const file = event.target.files[0];
+      setFormData({
+        ...formData,
+        image: file,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleFormChange = (event) => {
     event.preventDefault();
+    const dataToSend = new FormData();
+    // dataToSend.append("title", formData.title);
+    // dataToSend.append("author", formData.author);
+    // dataToSend.append("abstract", formData.abstract);
+    // dataToSend.append("image", formData.image);
+
+    for (const key in formData) {
+      dataToSend.append(key, formData[key]);
+    }
+
     axios
-      .post(`${import.meta.env.VITE_API_URL}/books`, formData)
+      .post(`${import.meta.env.VITE_API_URL}/books`, dataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((resp) => {
         const slug = resp.data.slug;
         navigate(`/books/${slug}`);
@@ -61,6 +84,18 @@ const CreateBook = () => {
                 id="author"
                 name="author"
                 value={formData.author}
+                onChange={setFieldValue}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="image">
+                Immagine
+              </label>
+              <input
+                className="form-control"
+                type="file"
+                id="image"
+                name="image"
                 onChange={setFieldValue}
               />
             </div>
