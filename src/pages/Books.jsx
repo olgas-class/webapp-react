@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
+import GlobalContext from "../contexts/GlobalContext";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
+  const { setIsLoading } = useContext(GlobalContext);
 
   useEffect(() => {
     getBooks();
@@ -20,13 +22,16 @@ const Books = () => {
     if (search) {
       params.search = search;
     }
-
+    setIsLoading(true);
     axios
       .get(`${import.meta.env.VITE_API_URL}/books`, {
         params,
       })
       .then((resp) => {
         setBooks(resp.data.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
