@@ -4,19 +4,22 @@ import BookCard from "../components/BookCard";
 
 export default function BooksPage() {
   const [books, setBooks] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
 
   const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     axios
-      .get(`${backendBaseUrl}/api/books`)
+      .get(`${backendBaseUrl}/api/books?page=${page}`)
       .then((resp) => {
         setBooks(resp.data.results);
+        setTotalPages(resp.data.info.pages);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -28,6 +31,30 @@ export default function BooksPage() {
               <BookCard book={book} />
             </div>
           ))}
+        </div>
+        <div className="mt-3">
+          <span className="me-3">
+            Pagina: {page} / {totalPages}
+          </span>
+
+          <button
+            disabled={page === 1}
+            onClick={() => {
+              setPage(page - 1);
+            }}
+            className="btn btn-success me-1"
+          >
+            Prev
+          </button>
+          <button
+            disabled={page === totalPages}
+            onClick={() => {
+              setPage(page + 1);
+            }}
+            className="btn btn-success me-1"
+          >
+            Next
+          </button>
         </div>
       </section>
     </>
