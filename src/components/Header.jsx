@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 export default function Header({ nomeApp }) {
-  console.log("Renderizzo Header");
-
   const headerLinks = [
     { title: "Home", path: "/" },
     { title: "Libri", path: "/books" },

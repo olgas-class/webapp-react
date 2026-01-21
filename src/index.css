@@ -2,3 +2,9 @@
   background-image: url(./assets/images/banner.png);
   background-size: cover;
 }
+
+.ms_page-banner {
+  height: 40vh;
+  background-size: cover;
+  background-position: center;
+}
