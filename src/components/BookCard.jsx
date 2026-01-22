@@ -19,7 +19,7 @@ export default function BookCard({ book }) {
           {book.title} - {book.author}
         </h5>
         <p className="card-text">{book.abstract}</p>
-        <Link to={`/books/${book.id}`} className="btn btn-outline-primary">
+        <Link to={`/books/${book.slug}`} className="btn btn-outline-primary">
           Vedi dettagli
         </Link>
       </div>

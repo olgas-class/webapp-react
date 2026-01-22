@@ -13,7 +13,7 @@ function App() {
           <Route element={<AppLayout nomeApp={nomeApp} />}>
             <Route element={<Home />} path="/" />
             <Route element={<BooksPage />} path="/books" />
-            <Route element={<BookDetailPage />} path="/books/:id" />
+            <Route element={<BookDetailPage />} path="/books/:slug" />
           </Route>
         </Routes>
       </BrowserRouter>

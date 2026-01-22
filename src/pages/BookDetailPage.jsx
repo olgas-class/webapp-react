@@ -5,21 +5,21 @@ import ReviewCard from "../components/ReviewCard";
 
 export default function BookDetailPage() {
   const [book, setBook] = useState({});
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`${backendBaseUrl}/api/books/${id}`)
+      .get(`${backendBaseUrl}/api/books/${slug}`)
       .then((resp) => {
         setBook(resp.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, [slug]);
 
   function goBack(event) {
     event.preventDefault();
