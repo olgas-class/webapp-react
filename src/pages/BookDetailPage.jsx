@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
+import ReviewForm from "../components/ReviewForm";
 
 export default function BookDetailPage() {
   const [book, setBook] = useState({});
@@ -11,6 +12,10 @@ export default function BookDetailPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    getBook();
+  }, [slug]);
+
+  function getBook() {
     axios
       .get(`${backendBaseUrl}/api/books/${slug}`)
       .then((resp) => {
@@ -19,7 +24,7 @@ export default function BookDetailPage() {
       .catch((err) => {
         console.log(err);
       });
-  }, [slug]);
+  }
 
   function goBack(event) {
     event.preventDefault();
@@ -55,6 +60,14 @@ export default function BookDetailPage() {
           ) : (
             <p>Nessuna recensione presente</p>
           )}
+        </div>
+      </section>
+      <section className="container py-5">
+        <div className="row">
+          <div className="col-12 col-md-8">
+            <h2>Lascia una review</h2>
+            <ReviewForm bookId={book.id} reloadreviews={getBook} />
+          </div>
         </div>
       </section>
     </>
