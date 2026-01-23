@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
 import ReviewForm from "../components/ReviewForm";
+import { useGlobal } from "../context/GlobalContext";
 
 export default function BookDetailPage() {
   const [book, setBook] = useState({});
   const { slug } = useParams();
 
-  const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
+  const { backendUrl } = useGlobal();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function BookDetailPage() {
 
   function getBook() {
     axios
-      .get(`${backendBaseUrl}/api/books/${slug}`)
+      .get(`${backendUrl}/api/books/${slug}`)
       .then((resp) => {
         setBook(resp.data);
       })
@@ -36,7 +37,7 @@ export default function BookDetailPage() {
       <section
         className="py-5 mt-5 ms_page-banner d-flex align-items-center justify-content-center"
         style={{
-          backgroundImage: `url(${backendBaseUrl}/images/${book.image})`,
+          backgroundImage: `url(${backendUrl}/images/${book.image})`,
         }}
       >
         <div className="container text-center ">

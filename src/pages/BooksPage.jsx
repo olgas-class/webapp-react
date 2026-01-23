@@ -1,23 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
+import { useGlobal } from "../context/GlobalContext";
 
 export default function BooksPage() {
   const [books, setBooks] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
 
-  const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
+  const { backendUrl, setIsLoading } = useGlobal();
 
   useEffect(() => {
+    setIsLoading(true);
     axios
-      .get(`${backendBaseUrl}/api/books?page=${page}`)
+      .get(`${backendUrl}/api/books?page=${page}`)
       .then((resp) => {
         setBooks(resp.data.results);
         setTotalPages(resp.data.info.pages);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [page]);
 

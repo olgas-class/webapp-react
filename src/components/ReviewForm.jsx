@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useGlobal } from "../context/GlobalContext";
 
 const initialFormData = {
   name: "",
@@ -10,7 +11,7 @@ const initialFormData = {
 export default function ReviewForm({ bookId, reloadreviews }) {
   const [formData, setFormData] = useState(initialFormData);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const { backendUrl } = useGlobal();
 
   function updateFormData(event) {
     const value = event.target.value; // 5

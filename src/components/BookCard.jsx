@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import NoImagePlaceholder from "../assets/images/no-image-placeholder.jpg";
+import { useGlobal } from "../context/GlobalContext";
 
 export default function BookCard({ book }) {
-  const backendBaseUrl = import.meta.env.VITE_BACKEND_URL;
+  const { backendUrl } = useGlobal();
+
   return (
     <div className="card h-100">
       <img
         src={
           book.image !== null
-            ? `${backendBaseUrl}/images/${book.image}`
+            ? `${backendUrl}/images/${book.image}`
             : NoImagePlaceholder
         }
         className="card-img-top"

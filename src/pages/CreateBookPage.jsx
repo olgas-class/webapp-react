@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobal } from "../context/GlobalContext";
+import { useAlert } from "../context/AlertContext";
 
 const initialData = {
   title: "",
@@ -13,9 +15,10 @@ export default function CreateBookPage() {
   const [formData, setFormData] = useState(initialData);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const { backendUrl } = useGlobal();
 
   const navigate = useNavigate();
+  const { setAlertData } = useAlert();
 
   function updateFormData(event) {
     const { value, name, type } = event.target;
@@ -51,6 +54,10 @@ export default function CreateBookPage() {
       })
       .then((resp) => {
         const slug = resp.data.bookSlug;
+        setAlertData({
+          type: "success",
+          message: "Il libro è stato creato con successo",
+        });
         navigate(`/books/${slug}`);
       })
       .catch((err) => {
